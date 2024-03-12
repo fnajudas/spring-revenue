@@ -1,0 +1,36 @@
+package Revenue.Using.Springboot.controller;
+
+import Revenue.Using.Springboot.model.GlobalResponse;
+import Revenue.Using.Springboot.model.RoleRequest;
+import Revenue.Using.Springboot.service.RoleServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/api/role")
+public class RoleController {
+    @Autowired
+    RoleServices roleServices;
+
+    @PostMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<GlobalResponse<String>> createRole(@RequestBody RoleRequest bReq) {
+        if (bReq.getName() == null || bReq.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body(new GlobalResponse<>("Name cannot be empty", null));
+        }
+
+        GlobalResponse<String> bResp = roleServices.CreateRole(bReq);
+        if (!bResp.getMessage().equals("Success")){
+            return ResponseEntity.internalServerError().body(bResp);
+        }
+
+        return ResponseEntity.ok().body(bResp);
+    }
+}
