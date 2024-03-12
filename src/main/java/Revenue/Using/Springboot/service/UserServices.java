@@ -3,7 +3,6 @@ package Revenue.Using.Springboot.service;
 import Revenue.Using.Springboot.model.GlobalResponse;
 import Revenue.Using.Springboot.model.UserRequest;
 import Revenue.Using.Springboot.model.UserResponse;
-import Revenue.Using.Springboot.repository.users.UserModel;
 import Revenue.Using.Springboot.repository.users.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
